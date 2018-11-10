@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import Topbar from './componentes/Topbar';
-
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-};
-
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Pokedex from './telas/Pokedex';
+import Pokemon from './telas/Pokemon';
 
 class App extends Component {
   render() {
     return ( 
+    <Router>
     <div>
-      <Topbar titulo="Pokedex" cor="secondary" />
+      <Route exact path="/" component={Pokedex}/>
+      <Route path="/pokemon/:id" component={Pokemon}/>
     </div>
+    </Router>
     );
   }
 }
