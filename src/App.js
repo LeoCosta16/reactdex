@@ -11,6 +11,8 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <h1 style={{color: 'purple'}} >Leo-Senpai</h1>
+          <h1 className="App-link">TA CALOR, DESGRAÇA</h1>
           <a
             className="App-link"
             href="https://reactjs.org"
