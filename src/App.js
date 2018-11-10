@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Button from '@material-ui/core/Button';
-import ReactDOM from 'react-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import Topbar from './componentes/Topbar';
 
 const styles = {
   root: {
@@ -16,8 +10,12 @@ const styles = {
 
 class App extends Component {
   render() {
-    return <div>ola</div>
+    return ( 
+    <div>
+      <Topbar titulo="Pokedex" cor="secondary" />
+    </div>
+    );
   }
 }
 
-export default withStyles(styles)(App);
+export default App;
