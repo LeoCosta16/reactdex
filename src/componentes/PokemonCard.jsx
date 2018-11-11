@@ -1,20 +1,25 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
 
 
 class PokemonCard extends React.Component{
+     
     state = {
-        foto: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png', 
-        nome: 'Charizard',
-        num:  '006'
-    };
+       /*  foto: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',nome: 'Charizard',
+        num:  '006',
+        alt:'17' */
+       
+
+    }; 
 
 
     componentDidMount(){
         this.carregarPokemon();
+        this.carregarDescricaoPokemon();
     }
 
     carregarPokemon = async () => {
@@ -24,12 +29,28 @@ class PokemonCard extends React.Component{
         const nome = data.name;
         const foto = data.sprites.front_default;
         const num = data.id;
-        this.setState({nome, foto, num});
+        const alt = data.height;
+        const peso = data.weight;
+        const hhab = data.abilities[0].ability.name;
+      
+
+        
+
+        this.setState({nome, foto, num, alt, peso, hhab});
         
     };
 
+    carregarDescricaoPokemon = async () => {
+        console.log(this.props.pokemonId);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${this.props.pokemonId}/`);
+        const data = await response.json();
+        const descript = data.flavor_text_entries[1].flavor_text;
+
+        this.setState({descript});
+    };
+
     render(){
-        const {foto, nome, num} = this.state;
+        const {foto, nome, num, alt, peso, hhab,descript} = this.state;
         console.log('Renderizei')
         return (
         <Card style={{margin: 16}}>
@@ -38,7 +59,19 @@ class PokemonCard extends React.Component{
           title={nome}
           subheader={num}
           
+          
         />
+
+        <CardContent>
+          <Typography component= "p">          
+          <div>Height: {alt}m</div><div>Weight: {peso}kg</div><div>Hidden Ability: {hhab}</div>
+          Flavor text: {descript}
+
+          
+          
+            
+          </Typography>
+        </CardContent>
         </Card>
         );
     }
