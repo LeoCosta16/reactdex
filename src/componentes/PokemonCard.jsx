@@ -12,7 +12,12 @@ class PokemonCard extends React.Component{
        /*  foto: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',nome: 'Charizard',
         num:  '006',
         alt:'17' */
-       
+        foto: '',
+        nome: '',
+        num: '',
+        ability: '',
+        hidden_ability: ''
+        
 
     }; 
 
@@ -24,19 +29,23 @@ class PokemonCard extends React.Component{
 
     carregarPokemon = async () => {
         console.log(this.props.pokemonId);
-        const response = await fetch(`/api/v2/pokemon/${this.props.pokemonId}/`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.props.pokemonId}/`);
         const data = await response.json();
         const nome = data.name;
         const foto = data.sprites.front_default;
         const num = data.id;
         const alt = data.height;
         const peso = data.weight;
-        const hhab = data.abilities[0].ability.name;
-      
 
-        
+        try {
+            const hidden_ability = data.abilities[0].ability.name;
+            const ability = data.abilities[1].ability.name;
+            this.setState({nome, foto, num, alt, peso, ability, hidden_ability})
+        } catch (error) {
+            this.setState({nome, foto, num})
+        }  
 
-        this.setState({nome, foto, num, alt, peso, hhab});
+        //this.setState({nome, foto, num, alt, peso, ability, hidden_ability});
         
     };
 
@@ -49,14 +58,18 @@ class PokemonCard extends React.Component{
         this.setState({descript});
     };
 
+    primeiraMaiscula(string) {
+        return string.replace(string.charAt(0), string.charAt(0).toUpperCase())
+    };
+
     render(){
-        const {foto, nome, num, alt, peso, hhab,descript} = this.state;
+        const {foto, nome, num, alt, peso, ability, hidden_ability, descript} = this.state;
         console.log('Renderizei')
         return (
         <Card style={{margin: 16}}>
         <CardHeader
           avatar={<Avatar style={{ width: 80, height: 80}} src={foto} />} 
-          title={nome}
+          title={this.primeiraMaiscula(nome)}
           subheader={num}
           
           
@@ -64,8 +77,10 @@ class PokemonCard extends React.Component{
 
         <CardContent>
           <Typography component= "p">          
-          <div>Height: {alt}m</div><div>Weight: {peso}kg</div><div>Hidden Ability: {hhab}</div>
-          Flavor text: {descript}
+          <div>Height: {alt}m</div><div>Weight: {peso}kg</div>
+          <div>Ability: {this.primeiraMaiscula(ability)}</div>
+          <div>Hidden Ability: {this.primeiraMaiscula(hidden_ability)}</div>
+          {descript}
 
           
           
