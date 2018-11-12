@@ -17,8 +17,6 @@ class PokemonCard extends React.Component{
         num: '',
         ability: '',
         hidden_ability: ''
-        
-
     }; 
 
 
@@ -39,10 +37,16 @@ class PokemonCard extends React.Component{
 
         try {
             const hidden_ability = data.abilities[0].ability.name;
-            const ability = data.abilities[1].ability.name;
-            this.setState({nome, foto, num, alt, peso, ability, hidden_ability})
+            this.setState({nome, foto, num, alt, peso, hidden_ability})
         } catch (error) {
-            this.setState({nome, foto, num})
+            this.setState({nome, foto, num, alt, peso})
+        }  
+
+        try {
+            const ability = data.abilities[1].ability.name;
+            this.setState({nome, foto, num, alt, peso, ability})
+        } catch (error) {
+            this.setState({nome, foto, num, alt, peso})
         }  
 
         //this.setState({nome, foto, num, alt, peso, ability, hidden_ability});
