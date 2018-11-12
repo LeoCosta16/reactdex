@@ -16,7 +16,8 @@ class PokemonCard extends React.Component{
         nome: '',
         num: '',
         ability: '',
-        hidden_ability: ''
+        hidden_ability: '',
+        descript: ''
     }; 
 
 
