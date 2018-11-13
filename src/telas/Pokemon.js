@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Topbar from '../componentes/Topbar';
 import PokemonCard from '../componentes/PokemonCard';
+import PokemonCardInfo from '../componentes/PokemonCardInfo';
 
 
 
@@ -12,7 +13,7 @@ class Pokemon extends Component {
     <div>
       <Topbar titulo="Pokemon" cor="primary" />
       <div style={{ marginTop: 72}}>
-        <PokemonCard pokemonId={id} />
+        <PokemonCardInfo pokemonId={id} />
       </div>
       
     </div>
