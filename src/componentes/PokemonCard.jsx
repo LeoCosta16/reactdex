@@ -14,16 +14,18 @@ class PokemonCard extends React.Component{
         alt:'17' */
         foto: '',
         nome: '',
-        num: '',
-        ability: '',
+        num: ''
+        /* ability: '',
         hidden_ability: '',
-        descript: ''
+        descript: '',
+        tipo1: '',
+        tipo2: '' */
     }; 
 
 
     componentDidMount(){
         this.carregarPokemon();
-        this.carregarDescricaoPokemon();
+        //this.carregarDescricaoPokemon();
     }
 
     carregarPokemon = async () => {
@@ -33,7 +35,7 @@ class PokemonCard extends React.Component{
         const nome = data.name;
         const foto = data.sprites.front_default;
         const num = data.id;
-        const alt = data.height;
+        /* const alt = data.height;
         const peso = data.weight;
 
         try {
@@ -50,11 +52,26 @@ class PokemonCard extends React.Component{
             this.setState({nome, foto, num, alt, peso})
         }  
 
-        //this.setState({nome, foto, num, alt, peso, ability, hidden_ability});
+        try {
+            const tipo1 = data.types[1].type.name;
+            this.setState({nome, foto, num, alt, peso, tipo1})
+        } catch (error) {
+            this.setState({nome, foto, num, alt, peso})
+        }  
+
+        try {
+            const tipo2 = data.types[0].type.name;
+            this.setState({nome, foto, num, alt, peso, tipo2})
+        }catch (error) {
+            this.setState({nome, foto, num, alt, peso})
+        } */
+        
+
+        this.setState({nome, foto, num});
         
     };
 
-    carregarDescricaoPokemon = async () => {
+    /* carregarDescricaoPokemon = async () => {
         console.log(this.props.pokemonId);
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${this.props.pokemonId}/`);
         const data = await response.json();
@@ -62,13 +79,13 @@ class PokemonCard extends React.Component{
 
         this.setState({descript});
     };
-
+ */
     primeiraMaiscula(string) {
         return string.replace(string.charAt(0), string.charAt(0).toUpperCase())
     };
 
     render(){
-        const {foto, nome, num, alt, peso, ability, hidden_ability, descript} = this.state;
+        const {foto, nome, num} = this.state;
         console.log('Renderizei')
         return (
         <Card style={{margin: 16}}>
@@ -80,18 +97,20 @@ class PokemonCard extends React.Component{
           
         />
 
-        <CardContent>
+        {/* <CardContent>
           <Typography component= "p">          
           <div>Height: {alt}m</div><div>Weight: {peso}kg</div>
           <div>Ability: {this.primeiraMaiscula(ability)}</div>
           <div>Hidden Ability: {this.primeiraMaiscula(hidden_ability)}</div>
+          <div>Type: {this.primeiraMaiscula(tipo1)}/{this.primeiraMaiscula(tipo2)}</div> 
           {descript}
+
 
           
           
             
           </Typography>
-        </CardContent>
+        </CardContent> */}
         </Card>
         );
     }
